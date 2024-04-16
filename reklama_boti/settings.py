@@ -150,8 +150,8 @@ CACHES = {
 }
 
 CELERY_BEAT_SCHEDULE = {
-    'add-every-30-seconds': {
+    'add-every-45-minutes': {
         'task': 'app.tasks.salom',
-        'schedule': 30.0,
+        'schedule': 2700.0,
     },
 }
