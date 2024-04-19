@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+dotenv_path = os.path.join(Path(__file__).resolve().parent.parent, '.env')
+
+load_dotenv(dotenv_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_v7owhy^@etu03%r)&z^ts!6#8j!83)wq_(3b@4&th0^n3g$s9'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG')))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -77,8 +82,13 @@ WSGI_APPLICATION = 'reklama_boti.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': str(os.getenv("DB_ENGINE")),
+        'NAME': str(os.getenv("DB_NAME")),
+        'USER': str(os.getenv("DB_USER")),
+        'PASSWORD': str(os.getenv("DB_PASSWORD")),
+        'HOST': str(os.getenv("DB_HOST")),
+        'PORT': int(os.getenv("DB_PORT"))
+
     }
 }
 
